@@ -217,9 +217,9 @@ EMAIL_HOST_PASSWORD = config('SMTP_PASSWORD')
 #    pass
 
 # para produccion estas variable tienen que ir en variables de entorno para que no se muestren en github
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51QUm1zFW2p0pN1BYbOIqmPrpklkAp0enVg2DMxMoZSpKHMfZsZjWS6jdzt7RBdxiMPFN2vBeAmClMyJlKfHxOKqb00Es6Okc5b'
-STRIPE_SECRET_KEY = 'sk_test_51QUm1zFW2p0pN1BYxaJqZuCOJ9HW71IX94EZd4wDSHinTca1nNyJnWE80nCYpkx0hr8hlqhldST3DlgJ7y63UYkl00eh8qzO3B'
-STRIPE_API_VERSION = '2024-11-20.acacia'
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_API_VERSION = config('STRIPE_API_VERSION')
 
 DOMAIN = 'http://127.0.0.1:8000/'
 #DOMAIN = 'https://estratebet.onrender.com'
