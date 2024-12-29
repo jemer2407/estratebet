@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Usuario verificado{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <h3 class="mb-4">Usuario verificado con éxito</h3>
+        <p>Gracias por verificar tu cuenta.</p>
+        {% if request.user.is_authenticated %}
+          <p>Ir a <a href="{% url 'home' %}">inicio</a>.</p>
+        {% else %}
+          <p>Puedes iniciar sesión <a href="{% url 'login' %}">aquí</a>.</p>
+        {% endif %}
+        
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Error Token{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <h3 class="mb-4">Ha habido un error en la verificación de tu cuenta</h3>
+        <p>El enlace de verificación de tu cuenta ha caducado, inicia sesión <a href="{% url 'login' %}">aquí</a> y solicita activar tu cuenta.</p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

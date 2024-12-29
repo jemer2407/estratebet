@@ -1,0 +1,429 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}{{match.home_team}} - {{match.visit_team}}{% endblock %}
+{% block content %}
+
+<!-- Content Row -->
+<div class="row justify-content-center">
+    <div class="col-sm-12 col-md-5 text-center">   
+        
+            <img src="{{ match.home_team.image.url }}" class="team-logo" alt="{{ match.home_team }}">
+            <br>
+            <a href="#home_team">{{ match.home_team }}</a>
+        
+    </div>
+
+    <div class="col-sm-12 col-md-2 text-center"><span class="mx-2">-</span></div>
+    
+    <div class="col-sm-12 col-md-5 text-center"> 
+        
+            <img src="{{ match.visit_team.image.url }}" class="team-logo" alt="{{ match.visit_team }}">
+            <br>
+            <a href="#visit_team">{{ match.visit_team }}</a>
+        
+    </div>
+    <p>{{match.league.contry}} - {{match.league}} - {{match.date}}</p>
+
+    <div class='col-md-12 text-center mt-2'>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-3">
+                    <a href="#calculadora">Calculadora goles 2º tiempo</a>
+                </div>
+                <br>
+                <div class="col-sm-12 col-md-3">
+                    <a href="#over-under">Mercado over/under</a>
+                </div>
+                <br>
+                <div class="col-sm-12 col-md-3">
+                    <a href="#inf-adicional">Información adicional</a>
+                </div>
+                <br>
+                <div class="col-sm-12 col-md-3">
+                    <a href="#gol-tramo">Goles por tramos</a>
+                </div>
+            </div>
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">{{match.home_team}}</th>
+                    <th scope="col">Empate</th>
+                    <th scope="col">{{match.visit_team}}</th>
+                </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td>{{cuota_win_home}}€ ({{prob_win_home}}%)</td>
+                        <td>{{cuota_empate}}€ ({{prob_empate}}%)</td>
+                        <td>{{cuota_win_visit}}€ ({{prob_win_visit}}%)</td>
+                    </tr>
+                
+            </tbody>
+        </table>
+    </div>
+
+    <div class='col-sm-12 col-md-8 mt-3 mb-3 text-center shadow-lg p-3 mb-5 bg-body rounded'>
+        <h5 class="mb-5" id="calculadora"><strong>Calculadora Probabilidad goles 2º Tiempo</strong></h5>
+            <div class="row">
+                <div class="col">
+                    {{match.home_team}}
+                    <input type="number" min=0 class="form-control" aria-label="home_gol_ht" id="home_gol_ht" aria-describedby="basic-addon1">
+                </div>
+                <div class="col">
+                    {{match.visit_team}}
+                    <input type="number" min=0 class="form-control" aria-label="visit_gol_ht" id="visit_gol_ht" aria-describedby="basic-addon1"> 
+                </div>
+            </div>
+            <p class="mt-5">* Introduce resultado al descanso y pulsa el botón para ver la probabilidad de goles en el segundo tiempo</p>
+            <div class="col text-center mt-4">
+                <button id="btn-prob-gol-2ht" class="btn btn-primary btn-sm btn-block">Calcular probilidad</button>
+                
+            </div>
+            <div>
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">1 gol más</th>
+                            <th scope="col">2 goles más</th>
+                            <th scope="col">3 goles más</th>
+                        </tr>
+                        </thead> 
+                        <tbody>
+                            <tr>
+                                <td id="prob1"></td>
+                                <td id="prob2"></td>
+                                <td id="prob3"></td>
+                            </tr>                            
+                    </tbody>
+                </table>
+                <div id="alert-calculadora">
+                    <span class="mt-3 mb-3" id="alert-message"></span>
+                </div>
+            </div>                
+        
+        <script>
+            var btn_prob = document.getElementById('btn-prob-gol-2ht');
+            btn_prob.addEventListener('click', function(){
+                var home_gol_ht = document.getElementById('home_gol_ht').value;
+                var visit_gol_ht = document.getElementById('visit_gol_ht').value;
+                
+                if(home_gol_ht != '' && visit_gol_ht != ''){
+                    const url = "{% url 'update-live' match.pk %}" + "?home_gol_ht="+home_gol_ht+"&visit_gol_ht="+visit_gol_ht;
+                
+                    fetch(url).then(response => response.json().then(function(data){
+                        document.getElementById('prob1').textContent = data.cuota_un_gol_mas + '€ ('+data.prob_un_gol_mas + '%)'
+                        document.getElementById('prob2').textContent = data.cuota_dos_goles_mas + '€ ('+data.prob_dos_goles_mas + '%)'
+                        document.getElementById('prob3').textContent = data.cuota_tres_goles_mas + '€ ('+data.prob_tres_goles_mas + '%)'
+                        document.getElementById('alert-calculadora').className = '';
+                        document.getElementById('alert-message').textContent = '';
+                        
+                    }))
+                
+                }else{
+                    document.getElementById('alert-calculadora').className = 'alert alert-danger alert-dismissible fade show';
+                    document.getElementById('alert-message').textContent = 'Debes introducir los goles al descanso';
+                    
+                }
+            })
+        </script>
+    </div>
+        
+    <div class='col-md-12 text-center'>
+    
+        <table class="table table-striped" id="over-under">
+            <thead>
+                <tr>
+                    <th scope="col">Mercado</th>
+                    <th scope="col">Over</th>
+                    <th scope="col">Under</th>
+                </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td>0.5 goles ht</td>
+                        <td>{{cuota_over_05_ht}}€ ({{prob_over_05_ht}}%)</td>
+                        <td>{{cuota_under_05_ht}}€ ({{prob_under_05_ht}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>1.5 goles ht</td>
+                        <td>{{cuota_over_15_ht}}€ ({{prob_over_15_ht}}%)</td>
+                        <td>{{cuota_under_15_ht}}€ ({{prob_under_15_ht}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>0.5 goles ft</td>
+                        <td>{{cuota_over_05_ft}}€ ({{prob_over_05_ft}}%)</td>
+                        <td>{{cuota_under_05_ft}}€ ({{prob_under_05_ft}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>1.5 goles ft</td>
+                        <td>{{cuota_over_15_ft}}€ ({{prob_over_15_ft}}%)</td>
+                        <td>{{cuota_under_15_ft}}€ ({{prob_under_15_ft}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>2.5 goles ft</td>
+                        <td>{{cuota_over_25_ft}}€ ({{prob_over_25_ft}}%)</td>
+                        <td>{{cuota_under_25_ft}}€ ({{prob_under_25_ft}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>3.5 goles ft</td>
+                        <td>{{cuota_over_35_ft}}€ ({{prob_over_35_ft}}%)</td>
+                        <td>{{cuota_under_35_ft}}€ ({{prob_under_35_ft}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>Gol 2ª mitad</td>
+                        <td>{{cuota_over_05_mitad2}}€ ({{prob_over_05_mitad2}}%)</td>
+                        <td>{{cuota_under_05_mitad2}}€ ({{prob_under_05_mitad2}}%)</td>
+                    </tr>            
+            </tbody>
+        </table>
+        
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ambos Equipos Anotarán</th>
+                    <th scope="col">Si</th>
+                    <th scope="col">No</th>
+                </tr>
+                </thead> 
+                <tbody>
+                    <tr>
+                        <td>FT</td>
+                        <td>{{cuota_aem_ft}}€ ({{prob_aem_ft}}%)</td>
+                        <td>{{cuota_aem_ft_no}}€ ({{prob_aem_ft_no}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>1ª mitad</td>
+                        <td>{{cuota_aem_ht}}€ ({{prob_aem_ht}}%)</td>
+                        <td>{{cuota_aem_ht_no}}€ ({{prob_aem_ht_no}}%)</td>
+                    </tr>
+                    <tr>
+                        <td>2ª mitad</td>
+                        <td>{{cuota_aem_ht2}}€ ({{prob_aem_ht2}}%)</td>
+                        <td>{{cuota_aem_ht2_no}}€ ({{prob_aem_ht2_no}}%)</td>
+                    </tr>
+                
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class='col-md-12 text-center'>
+        <h4 class="mb-4 mt-4" id="inf-adicional"><strong>Información adicional</strong></h4>
+        <img src="{{match.home_team.image.url}}" class="img-fluid" alt="" id='home_team'>  <strong>{{match.home_team}}</strong>
+
+
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Mercado</th>
+                    <th scope="col">Local</th>
+                    <th scope="col">Visitante</th>
+                    <th scope="col">General</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr>
+                    <td>Anota + 0.5 goles FT</td>
+                    <td>{{prob_anota_ft_home_home}}%</td>
+                    <td>{{prob_anota_ft_home_visit}}%</td>
+                    <td>{{prob_anota_ft_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 0.5 goles en 1ª mitad</td>
+                    <td>{{prob_anota_ht_home_home}}%</td>
+                    <td>{{prob_anota_ht_home_visit}}%</td>
+                    <td>{{prob_anota_ht_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 0.5 goles en 2ª mitad</td>
+                    <td>{{prob_anota_2ht_home_home}}%</td>
+                    <td>{{prob_anota_2ht_home_visit}}%</td>
+                    <td>{{prob_anota_2ht_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles FT</td>
+                    <td>{{prob_concede_ft_home_home}}%</td>
+                    <td>{{prob_concede_ft_home_visit}}%</td>
+                    <td>{{prob_concede_ft_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles en 1ª mitad</td>
+                    <td>{{prob_concede_ht_home_home}}%</td>
+                    <td>{{prob_concede_ht_home_visit}}%</td>
+                    <td>{{prob_concede_ht_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles en 2ª mitad</td>
+                    <td>{{prob_concede_2ht_home_home}}%</td>
+                    <td>{{prob_concede_2ht_home_visit}}%</td>
+                    <td>{{prob_concede_2ht_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Ambos Equipos Marcan</td>
+                    <td>{{prob_aem_home_home}}%</td>
+                    <td>{{prob_aem_home_visit}}%</td>
+                    <td>{{prob_aem_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 1.5 goles FT</td>
+                    <td>{{prob_anota_15_ft_home_home}}%</td>
+                    <td>{{prob_anota_15_ft_home_visit}}%</td>
+                    <td>{{prob_anota_15_ft_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 1.5 goles FT</td>
+                    <td>{{prob_concede_15_ft_home_home}}%</td>
+                    <td>{{prob_concede_15_ft_home_visit}}%</td>
+                    <td>{{prob_concede_15_ft_home}}%</td>
+                </tr>
+                <tr>
+                    <td>Over 2.5 goles FT</td>
+                    <td>{{prob_over_25_ft_home_home}}%</td>
+                    <td>{{prob_over_25_ft_home_visit}}%</td>
+                    <td>{{prob_over_25_ft_home}}%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <img src="{{match.visit_team.image.url}}" class="img-fluid" alt="" id='visit_team'>  <strong>{{match.visit_team}}</strong>
+
+
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Mercado</th>
+                    <th scope="col">Local</th>
+                    <th scope="col">Visitante</th>
+                    <th scope="col">General</th>
+                </tr>
+            </thead> 
+            <tbody>
+                <tr>
+                    <td>Anota + 0.5 goles FT</td>
+                    <td>{{prob_anota_ft_visit_home}}%</td>
+                    <td>{{prob_anota_ft_visit_visit}}%</td>
+                    <td>{{prob_anota_ft_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 0.5 goles en 1ª mitad</td>
+                    <td>{{prob_anota_ht_visit_home}}%</td>
+                    <td>{{prob_anota_ht_visit_visit}}%</td>
+                    <td>{{prob_anota_ht_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 0.5 goles en 2ª mitad</td>
+                    <td>{{prob_anota_2ht_visit_home}}%</td>
+                    <td>{{prob_anota_2ht_visit_visit}}%</td>
+                    <td>{{prob_anota_2ht_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles FT</td>
+                    <td>{{prob_concede_ft_visit_home}}%</td>
+                    <td>{{prob_concede_ft_visit_visit}}%</td>
+                    <td>{{prob_concede_ft_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles en 1ª mitad</td>
+                    <td>{{prob_concede_ht_visit_home}}%</td>
+                    <td>{{prob_concede_ht_visit_visit}}%</td>
+                    <td>{{prob_concede_ht_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 0.5 goles en 2ª mitad</td>
+                    <td>{{prob_concede_2ht_visit_home}}%</td>
+                    <td>{{prob_concede_2ht_visit_visit}}%</td>
+                    <td>{{prob_concede_2ht_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Ambos Equipos Marcan</td>
+                    <td>{{prob_aem_visit_home}}%</td>
+                    <td>{{prob_aem_visit_visit}}%</td>
+                    <td>{{prob_aem_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Anota + 1.5 goles FT</td>
+                    <td>{{prob_anota_15_ft_visit_home}}%</td>
+                    <td>{{prob_anota_15_ft_visit_visit}}%</td>
+                    <td>{{prob_anota_15_ft_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Concede + 1.5 goles FT</td>
+                    <td>{{prob_concede_15_ft_visit_home}}%</td>
+                    <td>{{prob_concede_15_ft_visit_visit}}%</td>
+                    <td>{{prob_concede_15_ft_visit}}%</td>
+                </tr>
+                <tr>
+                    <td>Over 2.5 goles FT</td>
+                    <td>{{prob_over_25_ft_visit_home}}%</td>
+                    <td>{{prob_over_25_ft_visit_visit}}%</td>
+                    <td>{{prob_over_25_ft_visit}}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class='col-md-12 text-center'>
+        <h4 class="mb-4 mt-4" id="gol-tramo"><strong>Goles por tramos de partido</strong></h4>
+        
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">Tramo (minutos)</th>
+                    <th scope="col">Probabilidad de gol</th>
+                    
+                </tr>
+            </thead> 
+            <tbody>
+        
+    
+                <tr>
+                    <td>1' - 10'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_1_10}}%</td>
+                </tr>
+                <tr>
+                    <td>11' - 20'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_11_20}}%</td>
+                </tr>
+                <tr>
+                    <td>21' - 30'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_21_30}}%</td>
+                </tr>
+                <tr>
+                    <td>31' - 40'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_31_40}}%</td>
+                </tr>
+                <tr>
+                    <td>41' - 50'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_41_50}}%</td>
+                </tr>
+                <tr>
+                    <td>51' - 60'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_51_60}}%</td>
+                </tr>
+                <tr>
+                    <td>61' - 70'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_61_70}}%</td>
+                </tr>
+                <tr>
+                    <td>71' - 80'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_71_80}}%</td>
+                </tr>
+                <tr>
+                    <td>81' - 90'</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_81_90}}%</td>
+                </tr>
+                <tr>
+                    <td>91' - Final</td>
+                    <td>{{prob_goles_tramo.prob_goles_tramo_91_final}}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    
+
+{% endblock %}

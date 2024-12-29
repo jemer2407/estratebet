@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<style>.errorlist{color:red;} label{display:none}</style>
+
+<div class="row mt-6 justify-content-left">
+  <div class="col-md-6 mx-auto mb-5 shadow-lg p-3 mb-5 bg-body rounded">
+    {% if request.user.is_authenticated %}
+      {% include "registration/message_identificate.html" %}      
+    {% else %}
+      <form action="" method="post">{% csrf_token %}
+        <h3 class="mb-4">Regístrate gratis</h3>
+        <p>Si ya tienes una cuenta, <a href="{% url 'login' %}">inicia sesión</a> a ella. Y sino, regístrate gratis y disfrutarás de 14 días de prueba</p>
+        {{form.as_p}}
+        <p><input type="submit" class="btn btn-primary btn-block" value="Confirmar"></p>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
