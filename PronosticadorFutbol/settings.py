@@ -32,6 +32,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
+#DEBUG = True
 DEBUG = config('DEBUG', cast=bool)
 #DEBUG = 'RENDER' not in os.environ
 
@@ -112,19 +113,19 @@ DATABASES = {
     }
 }
 
-'''
-# configuración para la base de datos en desarrollo
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'estratebet',
-        'USER': 'postgres',
-        'PASSWORD': 'Halamadrid/01',
-        'HOST': 'localhost',
-        'PORT': '5432'
+if DEBUG:
+    # configuración para la base de datos en desarrollo
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'estratebet',
+            'USER': 'postgres',
+            'PASSWORD': 'Halamadrid/01',
+            'HOST': 'localhost',
+            'PORT': '5432'
+        }
     }
-}'''
-
+else:'''
 # configuración para la base de datos en producción
 DATABASES = {
     'default': {
@@ -227,8 +228,10 @@ STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = config('STRIPE_API_VERSION')
 
-#DOMAIN = 'http://127.0.0.1:8000/'
-DOMAIN = 'https://estratebet.com/'
+if DEBUG:
+    DOMAIN = 'http://127.0.0.1:8000/'
+else:
+    DOMAIN = 'https://estratebet.com/'
 
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
