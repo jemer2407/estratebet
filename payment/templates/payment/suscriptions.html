@@ -5,7 +5,7 @@
 
 <!-- Content Row -->
 <div class="row justify-content-center">
-    <div class="col-6 text-center mt-3">
+    <div class="col-md-6 col-sm-12 text-center mt-3">
         {% if not request.user.is_authenticated %}
             <span><strong>Si aun no estas registrado, <a href="{% url 'signup' %}">regístrate</a> gratis</strong></span><br>
             <span><strong>Si ya tienes una cuenta <a href="{% url 'login' %}">inicia sesion</a></strong></span>
@@ -24,7 +24,7 @@
                     <li>Obtén beneficios adicionales</li>
                 </ul>
                 <div class="row justify-content-center">
-                    <div class="col-4 text-center">
+                    <div class="col-md-4 col-sm-8 text-center">
                         {% if request.user.is_authenticated and not request.user.profile.is_subscribed%}
                           <a class="w-100 btn btn-lg btn-outline-primary" href="{% url 'checkout-session' %}">Suscribirme</a>
                         {% endif %}
