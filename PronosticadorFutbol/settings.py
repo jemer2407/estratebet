@@ -228,7 +228,7 @@ STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_API_VERSION = config('STRIPE_API_VERSION')
 
 #DOMAIN = 'http://127.0.0.1:8000/'
-DOMAIN = 'https://estratebet.com'
+DOMAIN = 'https://estratebet.com/'
 
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
