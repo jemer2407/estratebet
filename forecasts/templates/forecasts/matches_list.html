@@ -4,10 +4,12 @@
 {% block content %}
   <!-- Content Row -->
   <div class="row justify-content-center">
-    <h1 class='mb-3 mt-3'>{{title}} {{match_list.0.league}}</h1>
-    <div class="table-responsive">
-      <table class="table mt-3">
-        <thead>
+    <div class="col-md-12">
+      
+      <h1 class='mb-3 mt-3'>{{title}} {{match_list.0.league}}</h1>
+      <div class="table-responsive">
+        <table class="table mt-3">
+          <thead>
             <tr>
               <th scope="col">Pais</th>
               <th scope="col">Liga</th>
@@ -17,7 +19,7 @@
               <th scope="col">Visitante</th>
               <th scope="col">Acción</th>
             </tr>
-          </thead> 
+          </thead>
           <tbody>
             {% for match in match_list %}
               <tr>
@@ -28,7 +30,6 @@
                 <td><img src="{{match.home_team.image.url}}" class="img-fluid" alt=""> {{match.home_team}}</td>
                 <td><img src="{{match.visit_team.image.url}}" class="img-fluid" alt=""> {{match.visit_team}}</td>
                 <td>
-                  
                   {% if first_match %}
                     {% if forloop.first %}
                       {% if request.user.is_authenticated %}                                
@@ -57,17 +58,15 @@
                       <a href="{% url 'signup' %}" class="btn btn-primary">Pronóstico</a>
                     {% endif %}
                   {% endif %}
-
                 </td>
               </tr>
             {% endfor %}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-3 justify-content-center">
+        {% include "core/cards_leagues.html" %}
+      </div>
     </div>
-    <div class="row mt-3 justify-content-center">
-      {% include "core/cards_leagues.html" %}
-
   </div>
-  </div>
-  
 {% endblock %}

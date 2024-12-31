@@ -21,13 +21,14 @@ class HomeView(TemplateView):
         leagues = League.objects.all()
         context['leagues'] = leagues
         # proximos partidos de todas las ligas
-        next_unplayed_matches = []
+        '''next_unplayed_matches = []
         for league in leagues:
             unplayed_matches = Match.objects.filter(league=league.id,gol_home_ht=None)  # aqui obtengo los que no se han jugado aun
             matches = get_next_matches_league(unplayed_matches)
             next_unplayed_matches.append(matches)
         
-        context['next_matches_leagues_list'] = next_unplayed_matches
+        context['next_matches_leagues_list'] = next_unplayed_matches'''
+        
         if self.request.user.is_authenticated:
             context['user'] = self.request.user
             profile = Profile.objects.get(user=self.request.user)

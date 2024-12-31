@@ -147,7 +147,9 @@
         <div class="row justify-content-center">
             {% include "core/cards_leagues.html" %}
         </div>
-    
+        
+        
+        {% comment %}
     
         {% for league_unplayed in next_matches_leagues_list %}
             <h2 class='mb-3 mt-3 text-center'>Próximos partidos de {{league_unplayed.0.league}}</h2>
@@ -212,6 +214,7 @@
                 </table>
             </div>
         {% endfor %}
+        {% endcomment %}
     </div>
 </div>
 {% endblock %}
