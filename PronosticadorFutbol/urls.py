@@ -36,7 +36,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     
 ]
-if settings.DEBUG:
-    from django.conf.urls.static import static
+#if settings.DEBUG:
+from django.conf.urls.static import static
     # variables MEDIA_URL Y MEDIA_ROOT las tenemos que declarar en el settings del proyecto
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
