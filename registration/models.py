@@ -70,7 +70,7 @@ def update_profile_status(sender, instance, created, **kwargs):
         subject = 'Verifica tu correo electrónico'
         message = '''
         Hola, {}! Bienvenido a Estratebet.
-        Por favor, verifica tu correo electrónico haciendo clic en el siguiente enlace: {}/accounts/verify/{} para tener acceso a los 7 días de prueba.
+        Por favor, verifica tu correo electrónico haciendo clic en el siguiente enlace: {}accounts/verify/{} para tener acceso a los 7 días de prueba.
         Éstos 7 días de prueba se activarán automáticamente al verificar tu correo electrónico.
         '''.format(instance.user.username,settings.DOMAIN, profile.verification_token)
         
