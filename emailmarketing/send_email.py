@@ -9,7 +9,7 @@ def send_email(email, subject, message):
     user = settings.EMAIL_HOST_USER
     password = settings.EMAIL_HOST_PASSWORD
     
-    sender_email = "webseocordoba@gmail.com"  # email del remitente
+    sender_email = "estratebet@estratebet.com"  # email del remitente
     # configuracion del servidor
     msg = MIMEMultipart()
 

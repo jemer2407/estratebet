@@ -213,9 +213,10 @@ SIGNUP_REDIRECT_URL = 'success_registration'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = config('SMTP_HOST')
 EMAIL_PORT = config('SMTP_PORT', cast=int)
-EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('SMTP_USER')
 EMAIL_HOST_PASSWORD = config('SMTP_PASSWORD')
+EMAIL_USE_SSL = True
+EMAIL_USE_TLS = False
     
 
     

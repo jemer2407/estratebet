@@ -57,7 +57,7 @@ def contact(request):
 
             # Enviamos el correo y redireccionamos
             message = f"Nombre: {name}\nCorreo: {email}\n\n{content}"
-            email_receptor = settings.SMTP_USER
+            email_receptor = settings.EMAIL_HOST_USER
             if send_email(email_receptor, subject, message):
                 return redirect(reverse('contact') + "?ok")
             else:

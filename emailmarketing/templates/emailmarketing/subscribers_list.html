@@ -14,7 +14,14 @@
     <div class="container text-center">
       <div class="row ">
         {% if 'ok' in request.GET %}
-            <p><b>Campaña enviada correctamente</b></p>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <p><b>Campaña enviada correctamente</b></p>
+          </div>
+        {% else %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <p><b>Hubo un error al enviar la campaña</b></p>
+        </div>
+
         {% endif %}
         <div class="col">
           <a href="{% url 'subscriber-maintenance-create' %}" class="btn btn-light">
