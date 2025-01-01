@@ -32,14 +32,14 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True   # True para desarrollo, comentado para producción
-#DEBUG = config('DEBUG', cast=bool)  # comentado para desarrollo
+#DEBUG = True   # True para desarrollo, comentado para producción
+DEBUG = config('DEBUG', cast=bool)  # comentado para desarrollo
 
 
 ALLOWED_HOSTS = ['127.0.0.1','estratebet.com','www.estratebet.com']
-#RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME')   # comentado para desarrollo
-#if RENDER_EXTERNAL_HOSTNAME:    # comentado para desarrollo
-#    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)  # comentado para desarrollo
+RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME')   # comentado para desarrollo
+if RENDER_EXTERNAL_HOSTNAME:    # comentado para desarrollo
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)  # comentado para desarrollo
 
 
 # Application definition
