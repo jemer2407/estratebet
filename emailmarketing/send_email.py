@@ -2,6 +2,8 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from django.conf import settings
+#from PronosticadorFutbol import settings
+
 
 def send_email(email, subject, message):
 
@@ -15,6 +17,13 @@ def send_email(email, subject, message):
 
     smtp_server = settings.EMAIL_HOST
     smtp_port = settings.EMAIL_PORT
+    
+    print(user)
+    print(password)
+    print(smtp_server)
+    print(smtp_port)
+    
+    
 
     # parametros del mensaje
     msg['From'] = sender_email
@@ -36,8 +45,10 @@ def send_email(email, subject, message):
         except Exception as e:
             server.quit()   # cerramos la conexion con el servidor
             print(e)
+            print("Error al enviar el correo")
             return False
     except smtplib.SMTPException as e:
+        print("Error al conectar con el servidor")
         print(e)
         return False
     

@@ -32,14 +32,14 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-#DEBUG = True   # True para desarrollo, comentado para producción
-DEBUG = config('DEBUG', cast=bool)  # comentado para desarrollo
+DEBUG = True   # True para desarrollo, comentado para producción
+#DEBUG = config('DEBUG', cast=bool)  # comentado para desarrollo
 
 
 ALLOWED_HOSTS = ['127.0.0.1','estratebet.com','www.estratebet.com']
-RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME')   # comentado para desarrollo
-if RENDER_EXTERNAL_HOSTNAME:    # comentado para desarrollo
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)  # comentado para desarrollo
+#RENDER_EXTERNAL_HOSTNAME = config('RENDER_EXTERNAL_HOSTNAME')   # comentado para desarrollo
+#if RENDER_EXTERNAL_HOSTNAME:    # comentado para desarrollo
+#    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)  # comentado para desarrollo
 
 
 # Application definition
@@ -215,9 +215,9 @@ EMAIL_HOST = config('SMTP_HOST')
 EMAIL_PORT = config('SMTP_PORT', cast=int)
 EMAIL_HOST_USER = config('SMTP_USER')
 EMAIL_HOST_PASSWORD = config('SMTP_PASSWORD')
-EMAIL_USE_SSL = True
-EMAIL_USE_TLS = False
-    
+EMAIL_USE_TLS = True
+
+
 
     
 #else:
