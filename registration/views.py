@@ -90,6 +90,7 @@ class ProfileUpdate(UpdateView):
             else:
                 context['date_subscription'] = 'No tienes una subscripción activa'
                 context['subscription_month'] = 'No tienes una subscripción activa'
+            
         return context
 
 @method_decorator(login_required, name='dispatch')
