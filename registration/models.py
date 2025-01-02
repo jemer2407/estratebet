@@ -17,7 +17,7 @@ def generate_custom_uuid():
     custom_token = hex_str[:32]
     return custom_token
 
-# Create your models here.
+
 
 def custom_upload_to(instance, filename):
     old_instance = Profile.objects.get(pk=instance.pk)
@@ -32,6 +32,7 @@ class Profile(models.Model):
     avatar = models.ImageField(verbose_name='Imagen de perfil', upload_to=custom_upload_to, null=True, blank=True)
     bio = models.TextField(verbose_name='Biografía', null=True, blank=True)
     link = models.URLField(verbose_name='Enlace', max_length=200, null=True, blank=True)
+    adult = models.BooleanField(default=True, verbose_name='Mayor de edad')
     created = models.DateTimeField(verbose_name='Fecha creación perfil', auto_now_add=True)
     trial_month = models.DateTimeField(verbose_name='Fecha final de prueba', null=True, blank=True, validators=[MinValueValidator(timezone.now)])
     date_subscription = models.DateTimeField(verbose_name='Fecha suscripción', null=True, blank=True, validators=[MinValueValidator(timezone.now)])
@@ -55,6 +56,7 @@ class Profile(models.Model):
 def ensure_profile_exists(sender, instance, **kwargs):
     if kwargs.get('created', False):
        Profile.objects.get_or_create(user=instance)
+       
        
 
 

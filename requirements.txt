@@ -23,9 +23,11 @@ psycopg2-binary==2.9.10
 pydantic==2.10.2
 pydantic-settings==2.6.1
 pydantic_core==2.27.1
+python-dateutil==2.9.0.post0
 python-decouple==3.8
 python-dotenv==1.0.1
 requests==2.32.3
+six==1.17.0
 soupsieve==2.6
 sqlparse==0.5.2
 stripe==11.3.0

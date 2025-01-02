@@ -12,6 +12,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.views.generic.edit import UpdateView
 from django.contrib.auth.views import PasswordResetView
+from django_flatpickr.widgets import DatePickerInput
 import stripe
 
 from django import forms
@@ -55,7 +56,13 @@ class SignUpView(CreateView):
             'class':'form-control mb-2', 
             'placeholder':'Repita contraseña'
             })
+        form.fields['date_birth'].widget = forms.DateInput(
+            attrs={
+            'class':'form-control mb-2',
+            'type': 'date'
+            })
         return form
+    
     
 @method_decorator(login_required, name='dispatch')
 class ProfileUpdate(UpdateView):
