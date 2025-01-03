@@ -11,14 +11,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.views.generic.edit import UpdateView
-from django.contrib.auth.views import PasswordResetView
-from django_flatpickr.widgets import DatePickerInput
+from django.utils.crypto import get_random_string
+from django.db.models import Q
 import stripe
 
 from django import forms
 from emailmarketing.send_email import send_email
 from registration.models import Profile
 from .forms import EmailForm, ProfileForm, UserCreationFormWithEmail
+from PronosticadorFutbol import settings
 
 
 
@@ -113,13 +114,60 @@ class EmailUpdate(UpdateView):
             'placeholder':'Email'
             })
         return form
-
+    def form_valid(self, form):
+        # obtener el perfil del usuario
+        
+        profile = Profile.objects.get(user=self.request.user)
+        profile.verification_update_email_token = get_random_string(length=32)
+        profile.is_verified_token_update_email = False
+        profile.save()
+        # enviar correo electrónico de verificación
+        email = form.cleaned_data.get('email')
+        subject = 'Verifica tu correo electrónico'
+        message = '''
+        Hola, {}! Has modificado tu email.
+        Por favor, verifica tu correo electrónico haciendo clic en el siguiente enlace: {}accounts/verify/update_email/{} para que sepamos que has sido tu.
+        '''.format(self.request.user.username, settings.DOMAIN, self.request.user.profile.verification_update_email_token)
+        send_email(email, subject, message)
+        return super().form_valid(form)
+    
+# vista para comprobar si el usuario ha verificado su correo modificado
+def verify_update_email(request, token):
+    try:
+        profile = Profile.objects.get(verification_update_email_token=token)
+        profile.date_verified_update_email = timezone.now()
+        profile.is_verified_token_update_email = True
+        
+        profile.save()
+        # enviar correo electrónico informando del cambio
+        email = profile.user.email
+        subject = 'Cambio de correo electrónico'
+        message = '''
+        Hola, {}! Has cambiado tu correo electrónico con éxito.
+        Si no has sido tú, por favor, ponte en contacto con nosotros.
+        '''.format(profile.user.username)
+        send_email(email, subject, message)
+        # si el correo con el que se ha registrado no está verificado
+        if  profile.is_verified == False:
+            # redirigimos a la vista verify
+            
+            return redirect('verify', token=profile.verification_update_email_token)
+            
+        
+        return redirect('token_verification')
+    except Profile.DoesNotExist:
+        return redirect('login')
+    except RecursionError:
+        return redirect('token_error')
 
 
 # vista para comprobar si el usuario ha verificado su correo
 def verify(request, token):
     try:
-        profile = Profile.objects.get(verification_token=token)
+        
+        
+        #profile = Profile.objects.get(verification_token=token)
+        profile = Profile.objects.get(Q(verification_token=token) | Q(verification_update_email_token=token))
         profile.is_verified = True
         profile.date_verified = timezone.now()
         # Calcular la fecha de finalización de la prueba

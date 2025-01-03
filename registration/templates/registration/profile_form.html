@@ -40,10 +40,14 @@
                 <span class='mt3 mb-3'>Fecha de registro</span>
                 <input type='text' name='date-registration' value='{{request.user.profile.created}}' class='form-control mt3 mb-3' readonly>
                 <span class='mt3 mb-5'>
-                  {% if request.user.profile.is_verified %}
-                   <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {% if request.user.profile.is_verified and request.user.profile.is_verified_token_update_email != False %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                       <i class="fa fa-check-square" aria-hidden="true"></i> Cuenta verificada el {{request.user.profile.date_verified}}
                     </div>
+                  {% elif request.user.profile.is_verified and request.user.profile.is_verified_token_update_email == False %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <i class="fa fa-times" aria-hidden="true"></i> verifica tu nuevo email <a href="https://mail.google.com/mail" class="btn btn-sm btn-secondary">Verificar</a>
+                    </div>                    
                   {% else %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                       <i class="fa fa-times" aria-hidden="true"></i> Cuenta sin verificar <a href="https://mail.google.com/mail" class="btn btn-sm btn-secondary">Verificar</a>
@@ -65,6 +69,8 @@
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                   <i class="fa fa-check-square" aria-hidden="true"></i> Mayor de edad
                 </div>
+                <span class='mt3 mb-3'>Último acceso</span>
+                <input type='text' name='date-registration' value='{{request.user.last_login}}' class='form-control mt3 mb-3' readonly>
               
               </div>
               <input type="submit" class="btn btn-primary btn-block mt-3" value="Actualizar">

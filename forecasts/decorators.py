@@ -20,7 +20,7 @@ def verified_required(view_func):
     @login_required
     def _wrapped_view(request, *args, **kwargs):
         if request.user.is_authenticated:
-            if request.user.profile.is_verified:
+            if request.user.profile.is_verified and request.user.profile.is_verified_token_update_email != False:
                 return view_func(request, *args, **kwargs)
             else:
                 return redirect('home')

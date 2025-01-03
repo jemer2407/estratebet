@@ -42,14 +42,15 @@ class Profile(models.Model):
     is_verified = models.BooleanField(default=False, verbose_name='Correo verificado')
     verification_token = models.CharField(max_length=32, verbose_name='Token de verificación')
     date_verified = models.DateTimeField(verbose_name='Fecha verificación', null=True, blank=True)
-
+    verification_update_email_token = models.CharField(max_length=32, verbose_name='Token de verificación de actualización de correo electrónico', null=True, blank=True)
+    date_verified_update_email = models.DateTimeField(verbose_name='Fecha verificación de actualización de correo electrónico', null=True, blank=True)
+    is_verified_token_update_email = models.BooleanField(verbose_name='Correo modificado verificado', null=True, blank=True)
+    
     class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfiles'
         ordering = ['user__username']
     
-    
-
 
 
 @receiver(post_save, sender=User)

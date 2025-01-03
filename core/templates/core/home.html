@@ -10,9 +10,10 @@
 <div class="row justify-content-center">
     <div class="col-md-9 text-center">
         
-        {% if request.user.is_authenticated and not request.user.profile.is_verified %}
+        {% if request.user.is_authenticated and not request.user.profile.is_verified or request.user.profile.is_verified_token_update_email == False %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>¡Verifica tu email!</strong> Hemos enviado un email a <a href="https://mail.google.com/mail">{{request.user.email}}</a> con un enlace para verificar tu cuenta. Si no lo ves, revisa la carpeta de spam.
+                En caso de no recibirlo, puedes modificar tu email <a href="{% url 'profile_email' %}">aquí</a>.
             </div>
         {% elif request.user.is_authenticated and request.user.profile.is_trial %}
             <div class="alert alert-info alert-dismissible fade show" role="alert">
