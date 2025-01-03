@@ -18,13 +18,7 @@ def send_email(email, subject, message):
     smtp_server = settings.EMAIL_HOST
     smtp_port = settings.EMAIL_PORT
     
-    print(user)
-    print(password)
-    print(smtp_server)
-    print(smtp_port)
     
-    
-
     # parametros del mensaje
     msg['From'] = sender_email
     msg['To'] = email

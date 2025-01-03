@@ -57,6 +57,13 @@ class Profile(models.Model):
 def ensure_profile_exists(sender, instance, **kwargs):
     if kwargs.get('created', False):
        Profile.objects.get_or_create(user=instance)
+       # enviar correo electronico de nuevo usuario al administrador
+       email = 'estratebet@gmail.com'
+       subject = 'Nuevo usuario registrado'
+       message = '''Se ha registrado un nuevo usuario: 
+       nombre de susuario: {} 
+       correo electrónico: {}'''.format(instance.username, instance.email)
+       send_email(email, subject, message)
        
        
 
