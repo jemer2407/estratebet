@@ -120,7 +120,10 @@
             {% if not request.user.is_authenticated or not request.user.profile.is_subscribed and request.user.profile.is_verified %}
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
+                    {% comment %}
                     <a class="nav-link" href="{% url 'subscriptions' %}">
+                    {% endcomment %}
+                    <a class="nav-link" href="#">
                     <i class="fa fa-id-card" aria-hidden="true"></i>
                     <span>Suscripciones</span></a>
                 </li>

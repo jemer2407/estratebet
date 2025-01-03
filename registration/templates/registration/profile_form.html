@@ -58,7 +58,10 @@
                 <input type='text' name='date-registration' value='{{trial_month}}' class='form-control mt3 mb-3' readonly>
                 
                 {% if not request.user.profile.is_subscribed %}
+                  {% comment %}
                   <a href="{% url 'checkout-session' %}" class="btn btn-success mb-3">Suscribirme al plan BÁSICO</a>
+                  {% endcomment %}
+                  <a href="#" class="btn btn-success mb-3">Suscribirme al plan BÁSICO</a>
                   <br>
                 {% endif %}
                   
