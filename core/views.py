@@ -17,7 +17,7 @@ class HomeView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Estratebet - Versión Beta'
+        context['title'] = 'Pronosticador de Futbol'
         leagues = League.objects.all()
         context['leagues'] = leagues
         # proximos partidos de todas las ligas
@@ -69,3 +69,10 @@ def contact(request):
         'form': contact_form
     })
 
+# vista para la pagina robots.txt
+class RobotsView(TemplateView):
+    template_name = "core/robots.txt"
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {
+            'title': 'robots.txt'
+        })

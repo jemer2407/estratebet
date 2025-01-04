@@ -1167,7 +1167,7 @@ class NextMatchesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Próximos partidos de '
+        context['title'] = 'Pronosticos '
 
         league_id = get_object_or_404(League, id=self.kwargs['pk'])
         unplayed_matches = Match.objects.filter(league=league_id,gol_home_ht=None)  # aqui obtengo los que no se han jugado aun

@@ -1,0 +1,18 @@
+#robot.txt
+User-agent: *
+Disallow: /admin/
+Disallow: /contact/
+Disallow: /pages/page/1/aviso
+Disallow: /pages/page/2/politica-de-privacidad
+Disallow: /pages/page/3/cookies
+
+User-agent: Googlebot
+Disallow: /admin/
+Disallow: /contact/
+
+
+User-agent: Gpbot
+Disallow: /admin/
+Disallow: /contact/
+
+
