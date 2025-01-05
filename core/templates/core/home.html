@@ -141,7 +141,7 @@
     {% endif %}
         
     
-    <div class="col-md-12 mt-4">
+    <div class="col-md-12 mt-4 mb-4">
         <h1 class='mb-3 mt-3'>{{title}}</h1>
         {% if messages %}
             <p class="messages">
@@ -150,13 +150,24 @@
                 {% endfor %}
             </p>
         {% endif %}
-        <!-- Content Row -->
-        <div class="row justify-content-center">
-            {% include "core/cards_leagues.html" %}
-        </div>
+        
 
+        
         <h2 class='mb-3 mt-3 text-center'>Pronosticos para hoy {{hoy}}</h2>
-
+        {% comment %}
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <span class="page-link">{{hoy}}</span>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">{{manana}}</a></li>
+                
+                <li class="page-item">
+                    <a class="page-link" href="#">{{pasado}}</a>
+                </li>
+            </ul>
+        </nav>
+        {% endcomment %}
         <div class="table-responsive">
             <table class="table mt-3">
                 <thead>
@@ -217,7 +228,10 @@
                 </tbody>
             </table>
         </div>
-        
+        <!-- Content Row -->
+        <div class="row justify-content-center">
+            {% include "core/cards_leagues.html" %}
+        </div>
         {% comment %}
     
         {% for league_unplayed in next_matches_leagues_list %}

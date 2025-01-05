@@ -24,7 +24,12 @@ class HomeView(TemplateView):
         # partidos de hoy
         context['match_today'] = Match.objects.filter(date=timezone.now())
         context['hoy'] = timezone.now().strftime('%d/%m/%Y')
-         
+        context['manana'] = (timezone.now() + timezone.timedelta(days=1)).strftime('%d/%m/%Y')
+        context['pasado'] = (timezone.now() + timezone.timedelta(days=2)).strftime('%d/%m/%Y')
+        
+        
+        
+        
             
         
         
