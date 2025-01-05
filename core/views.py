@@ -7,6 +7,7 @@ from registration.models import Profile
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.utils import timezone
+from datetime import datetime
 from forecasts.models import Match, Contry, League, Strategy
 from forecasts.views import get_next_matches_league
 from emailmarketing.send_email import send_email
@@ -20,6 +21,14 @@ class HomeView(TemplateView):
         context['title'] = 'Pronosticador de Futbol'
         leagues = League.objects.all()
         context['leagues'] = leagues
+        # partidos de hoy
+        context['match_today'] = Match.objects.filter(date=timezone.now())
+        context['hoy'] = timezone.now().strftime('%d/%m/%Y')
+         
+            
+        
+        
+        
         # proximos partidos de todas las ligas
         '''next_unplayed_matches = []
         for league in leagues:
