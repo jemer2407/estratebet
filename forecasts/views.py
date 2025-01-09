@@ -107,45 +107,95 @@ def calcular_prob_anota_concede_gol(num_total_match,
                                     matches_over_25_ft_visit,
                                     matches_over_25_ft):
     
-    prob_anota_ft_home = np.round(100 * matches_anota_ft_home / num_total_match_home,2)
-    prob_anota_ft_visit = np.round(100 * matches_anota_ft_visit / num_total_match_visit,2)
-    prob_anota_ft = np.round(100 * matches_anota_ft / num_total_match,2)
+    if num_total_match_home != 0:
+        prob_anota_ft_home = np.round(100 * matches_anota_ft_home / num_total_match_home,2)
+        prob_anota_ht_home = np.round(100 * matches_anota_ht_home / num_total_match_home,2)
+        prob_anota_2ht_home = np.round(100 * matches_anota_2ht_home / num_total_match_home,2)
+        prob_concede_ft_home = np.round(100 * matches_concede_ft_home / num_total_match_home,2)
+        prob_concede_ht_home = np.round(100 * matches_concede_ht_home / num_total_match_home,2)
+        prob_concede_2ht_home = np.round(100 * matches_concede_2ht_home / num_total_match_home,2)
+        prob_aem_home = np.round(100 * matches_aem_home / num_total_match_home,2)
+        prob_anota_15_ft_home = np.round(100 * matches_anota_15_ft_home / num_total_match_home,2)
+        prob_concede_15_ft_home = np.round(100 * matches_concede_15_ft_home / num_total_match_home,2)
+        prob_over_25_ft_home = np.round(100 * matches_over_25_ft_home / num_total_match_home,2)
+    else:
+        prob_anota_ft_home = 0
+        prob_anota_ht_home = 0
+        prob_anota_2ht_home = 0
+        prob_concede_ft_home = 0
+        prob_concede_ht_home = 0
+        prob_concede_2ht_home = 0
+        prob_aem_home = 0
+        prob_anota_15_ft_home = 0
+        prob_concede_15_ft_home = 0
+        prob_over_25_ft_home = 0
+    
+    if num_total_match_visit != 0:
+        prob_anota_ft_visit = np.round(100 * matches_anota_ft_visit / num_total_match_visit,2)
+        prob_anota_ht_visit = np.round(100 * matches_anota_ht_visit / num_total_match_visit,2)
+        prob_anota_2ht_visit = np.round(100 * matches_anota_2ht_visit / num_total_match_visit,2)
+        prob_concede_ft_visit = np.round(100 * matches_concede_ft_visit / num_total_match_visit,2)
+        prob_concede_ht_visit = np.round(100 * matches_concede_ht_visit / num_total_match_visit,2)
+        prob_concede_2ht_visit = np.round(100 * matches_concede_2ht_visit / num_total_match_visit,2)
+        prob_aem_visit = np.round(100 * matches_aem_visit / num_total_match_visit,2)
+        prob_anota_15_ft_visit = np.round(100 * matches_anota_15_ft_visit / num_total_match_visit,2)
+        prob_concede_15_ft_visit = np.round(100 * matches_concede_15_ft_visit / num_total_match_visit,2)
+        prob_over_25_ft_visit = np.round(100 * matches_over_25_ft_visit / num_total_match_visit,2)
+    else:
+        prob_anota_ft_visit = 0
+        prob_anota_ht_visit = 0
+        prob_anota_2ht_visit = 0
+        prob_concede_ft_visit = 0
+        prob_concede_ht_visit = 0
+        prob_concede_2ht_visit = 0
+        prob_aem_visit = 0
+        prob_anota_15_ft_visit = 0
+        prob_concede_15_ft_visit = 0
+        prob_over_25_ft_visit = 0
+    
+    if num_total_match != 0:
+        prob_anota_ft = np.round(100 * matches_anota_ft / num_total_match,2)
+        prob_anota_ht = np.round(100 * matches_anota_ht / num_total_match,2)
+        prob_anota_2ht = np.round(100 * matches_anota_2ht / num_total_match,2)
+        prob_concede_ft = np.round(100 * matches_concede_ft / num_total_match,2)
+        prob_concede_ht = np.round(100 * matches_concede_ht / num_total_match,2)
+        prob_concede_2ht = np.round(100 * matches_concede_2ht / num_total_match,2)
+        prob_aem = np.round(100 * matches_aem / num_total_match,2)
+        prob_anota_15_ft = np.round(100 * matches_anota_15_ft / num_total_match,2)
+        prob_concede_15_ft = np.round(100 * matches_concede_15_ft / num_total_match,2)
+        prob_over_25_ft = np.round(100 * matches_over_25_ft / num_total_match,2)
+    else:
+        prob_anota_ft = 0
+        prob_anota_ht = 0
+        prob_anota_2ht = 0
+        prob_concede_ft = 0
+        prob_concede_ht = 0
+        prob_concede_2ht = 0
+        prob_aem = 0
+        prob_anota_15_ft = 0
+        prob_concede_15_ft = 0
+        prob_over_25_ft = 0
+    
 
-    prob_anota_ht_home = np.round(100 * matches_anota_ht_home / num_total_match_home,2)
-    prob_anota_ht_visit = np.round(100 * matches_anota_ht_visit / num_total_match_visit,2)
-    prob_anota_ht = np.round(100 * matches_anota_ht / num_total_match,2)
+    
+    
+    
 
-    prob_anota_2ht_home = np.round(100 * matches_anota_2ht_home / num_total_match_home,2)
-    prob_anota_2ht_visit = np.round(100 * matches_anota_2ht_visit / num_total_match_visit,2)
-    prob_anota_2ht = np.round(100 * matches_anota_2ht / num_total_match,2)
+    
+    
+    
 
-    prob_concede_ft_home = np.round(100 * matches_concede_ft_home / num_total_match_home,2)
-    prob_concede_ft_visit = np.round(100 * matches_concede_ft_visit / num_total_match_visit,2)
-    prob_concede_ft = np.round(100 * matches_concede_ft / num_total_match,2)
+    
+    
+    
 
-    prob_concede_ht_home = np.round(100 * matches_concede_ht_home / num_total_match_home,2)
-    prob_concede_ht_visit = np.round(100 * matches_concede_ht_visit / num_total_match_visit,2)
-    prob_concede_ht = np.round(100 * matches_concede_ht / num_total_match,2)
+    
+    
+    
 
-    prob_concede_2ht_home = np.round(100 * matches_concede_2ht_home / num_total_match_home,2)
-    prob_concede_2ht_visit = np.round(100 * matches_concede_2ht_visit / num_total_match_visit,2)
-    prob_concede_2ht = np.round(100 * matches_concede_2ht / num_total_match,2)
-
-    prob_aem_home = np.round(100 * matches_aem_home / num_total_match_home,2)
-    prob_aem_visit = np.round(100 * matches_aem_visit / num_total_match_visit,2)
-    prob_aem = np.round(100 * matches_aem / num_total_match,2)
-
-    prob_anota_15_ft_home = np.round(100 * matches_anota_15_ft_home / num_total_match_home,2)
-    prob_anota_15_ft_visit = np.round(100 * matches_anota_15_ft_visit / num_total_match_visit,2)
-    prob_anota_15_ft = np.round(100 * matches_anota_15_ft / num_total_match,2)
-
-    prob_concede_15_ft_home = np.round(100 * matches_concede_15_ft_home / num_total_match_home,2)
-    prob_concede_15_ft_visit = np.round(100 * matches_concede_15_ft_visit / num_total_match_visit,2)
-    prob_concede_15_ft = np.round(100 * matches_concede_15_ft / num_total_match,2)
-
-    prob_over_25_ft_home = np.round(100 * matches_over_25_ft_home / num_total_match_home,2)
-    prob_over_25_ft_visit = np.round(100 * matches_over_25_ft_visit / num_total_match_visit,2)
-    prob_over_25_ft = np.round(100 * matches_over_25_ft / num_total_match,2)
+    
+    
+    
 
 
     return (prob_anota_ft_home,
