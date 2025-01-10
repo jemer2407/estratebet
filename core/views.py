@@ -29,11 +29,6 @@ class HomeView(TemplateView):
         
         
         
-        
-            
-        
-        
-        
         # proximos partidos de todas las ligas
         '''next_unplayed_matches = []
         for league in leagues:
@@ -47,6 +42,11 @@ class HomeView(TemplateView):
             context['user'] = self.request.user
             profile = Profile.objects.get(user=self.request.user)
             context['profile'] = profile
+            strategies = Strategy.objects.filter(user=profile.user)
+            print(strategies)
+            if not strategies:
+                context['strategies'] = False
+            
         
         return context
 

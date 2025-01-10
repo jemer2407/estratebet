@@ -12,6 +12,35 @@
 <!-- Content Row -->
 <div class="row justify-content-center">
     <div class="col-md-9 text-center">
+        {% if strategies == False %}
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger mb-4" data-toggle="modal" data-target="#exampleModal">
+                Aviso Importante sobre tus estrategias
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Alerta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p>No tienes estrategias creadas. Crea una y sácale rendimiento a tu tiempo</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-md btn-outline-primary" href="{% url 'strategy-create' %}">Crear estrategia</a>
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        
+        {% endif %}
         
         {% if request.user.is_authenticated and not request.user.profile.is_verified or request.user.profile.is_verified_token_update_email == False %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
