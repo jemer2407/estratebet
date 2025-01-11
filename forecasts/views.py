@@ -450,7 +450,7 @@ class ProbGolTramo:
 def get_matches_both_team(obj):
 
     home_home,home_visit,visit_home,visit_visit,matches = get_matches_home_visit(obj)
-
+    #print(home_home)
     # probabilidad de goles en tramos de partido
 
     prob_goles_tramo = ProbGolTramo()    # creamos el objeto goles_tramo de la clase ProbGolTramo
