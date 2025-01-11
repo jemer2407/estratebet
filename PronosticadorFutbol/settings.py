@@ -32,7 +32,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True   # True para desarrollo, comentado para producción
+#DEBUG = True   # True para desarrollo, comentado para producción
 DEBUG = config('DEBUG', cast=bool)  # comentado para desarrollo
 
 
