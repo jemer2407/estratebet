@@ -1,6 +1,9 @@
 {% extends 'core/base.html' %}
+{% block description %}
+    {{title}} {{match_list.0.league}} para tus apuestas con nuestro software de prediccion de la {{match_list.0.league}}. Obtén las mejores cuotas con nuestros algoritmos predictivos.
+{% endblock  %}
 {% load static %}
-{% block title %}{{title}}{% endblock %}
+{% block title %}{{title}} {{match_list.0.league}}{% endblock %}
 {% block content %}
   <!-- Content Row -->
   <div class="row justify-content-center">

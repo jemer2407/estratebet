@@ -18,7 +18,7 @@ class HomeView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Pronosticador de Futbol'
+        context['title'] = 'Pronosticos Futbol'
         leagues = League.objects.all()
         context['leagues'] = leagues
         # partidos de hoy
