@@ -23,9 +23,9 @@ class HomeView(TemplateView):
         context['leagues'] = leagues
         # partidos de hoy
         context['match_today'] = Match.objects.filter(date=timezone.now())
-        context['hoy'] = timezone.now().strftime('%d/%m/%Y')
-        context['manana'] = (timezone.now() + timezone.timedelta(days=1)).strftime('%d/%m/%Y')
-        context['pasado'] = (timezone.now() + timezone.timedelta(days=2)).strftime('%d/%m/%Y')
+        #context['hoy'] = timezone.now().strftime('%d/%m/%Y')
+        #context['manana'] = (timezone.now() + timezone.timedelta(days=1)).strftime('%d/%m/%Y')
+        #context['pasado'] = (timezone.now() + timezone.timedelta(days=2)).strftime('%d/%m/%Y')
         
         
         
@@ -43,7 +43,6 @@ class HomeView(TemplateView):
             profile = Profile.objects.get(user=self.request.user)
             context['profile'] = profile
             strategies = Strategy.objects.filter(user=profile.user)
-            print(strategies)
             if not strategies:
                 context['strategies'] = False
             
