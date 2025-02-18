@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_summernote',
     "django_flatpickr",
+    'django_recaptcha',
     # apps propias
     'administrator',
     'core',
@@ -237,5 +238,9 @@ else:
 SESSION_COOKIE_AGE = 1209600  # 2 semanas en segundos
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = False
+
+# recaptcha
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
 
 
